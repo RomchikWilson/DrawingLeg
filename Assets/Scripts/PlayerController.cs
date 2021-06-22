@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody rigidBody;
 
-    private bool freezeGame = false;
+    [HideInInspector]
+    public bool freezeGame = false;
     private Vector3 startingPosition;
     private Mesh meshLeft;
     private Mesh meshRight;
@@ -60,8 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!freezeGame)
         {
-            rigidBody.AddForce(rigidBody.transform.forward, ForceMode.VelocityChange);
-            rigidBody.velocity = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, rigidBody.velocity.z > velocityPlayer ? velocityPlayer : rigidBody.velocity.z);
+            transform.Translate(Vector3.forward * velocityPlayer * Time.deltaTime);
         } 
     }
 
@@ -69,12 +69,14 @@ public class PlayerController : MonoBehaviour
     {
         freezeGame = true;
         rigidBody.velocity = Vector3.zero;
+        rigidBody.isKinematic = true;
         animator.speed = 0;
     }
 
     private void UnfreezeGame()
     {
         freezeGame = false;
+        rigidBody.isKinematic = false;
         animator.speed = 1;
     }
 
@@ -82,6 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         //Создаем локальные переменные
         Vector3 maxY = new Vector3(0f, -100f, 0f);
+        Vector3 minY = new Vector3(0f, 100f, 0f);
 
         Vector3[] vertices = new Vector3[(countPoints - 1) * 8];
         int[] triangls = new int[(countPoints - 1) * 36];
@@ -98,7 +101,10 @@ public class PlayerController : MonoBehaviour
             if (_position.y > maxY.y)
             {
                 maxY = _position;
-            }
+            } else if (_position.y < minY.y)
+            {
+                minY = _position;
+            }        
         }
 
         //Создаем точки вершин и треугольников для MeshFilters
@@ -199,6 +205,8 @@ public class PlayerController : MonoBehaviour
         //Заполняем Colliders
         leftLine.GetComponent<MeshCollider>().sharedMesh = meshLeft;
         rightLine.GetComponent<MeshCollider>().sharedMesh = meshRight;
+
+        //transform.position = new Vector3(transform.position.x, transform.position.y + Math.Abs(maxY.y - minY.y), transform.position.z);
     }
 
     void OnTriggerEnter(Collider collision)
