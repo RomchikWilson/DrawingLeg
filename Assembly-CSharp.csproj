@@ -57,43 +57,45 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\DrawingController.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Unity\Info\Scripts\Readme.cs" />
-    <Compile Include="Assets\Unity\ConstraintSamples\Scripts\mParent.cs" />
-    <Compile Include="Assets\IKFootPlacement.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\ObjectMover.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\ChainKinematicDemo.cs" />
+    <Compile Include="Assets\Generic IK\Core\Internal\ChainKinematicSolver.cs" />
+    <Compile Include="Assets\Generic IK\Core\Internal\CyclicDescendSolver.cs" />
     <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\TargetFieldOfView.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\Player\ThirdPersonCharacter.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\AutoCam.cs" />
-    <Compile Include="Assets\Generic IK\Core\Internal\Core.cs" />
-    <Compile Include="Assets\Generic IK\Core\Internal\AnalyticalSolver.cs" />
-    <Compile Include="Assets\Generic IK\Core\Utility\HumanLeg.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\HandHeldCam.cs" />
+    <Compile Include="Assets\NonConvexMeshCollider.cs" />
     <Compile Include="Assets\Generic IK\Core\Utility\HumanPart.cs" />
     <Compile Include="Assets\Generic IK\Core\HumanoidVerticalLegPlacement.cs" />
+    <Compile Include="Assets\Scripts\DrawingController.cs" />
     <Compile Include="Assets\Generic IK\DemoFiles\Code\SwingAtDemo.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\FreeLookCam.cs" />
-    <Compile Include="Assets\Generic IK\Core\Internal\CyclicDescendSolver.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\AbstractTargetFollower.cs" />
-    <Compile Include="Assets\Generic IK\Core\InverseKinematics.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\LookatTarget.cs" />
     <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\ProtectCameraFromWallClip.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\Player\ThirdPersonUserControl.cs" />
-    <Compile Include="Assets\Generic IK\Core\Internal\ChainKinematicSolver.cs" />
-    <Compile Include="Assets\Generic IK\Core\Utility\GenericMath.cs" />
-    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\PivotBasedCameraRig.cs" />
-    <Compile Include="Assets\Generic IK\Core\Internal\FastReachSolver.cs" />
+    <Compile Include="Assets\Generic IK\Core\Internal\AnalyticalSolver.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\HandHeldCam.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\AbstractTargetFollower.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\ObjectMover.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\FreeLookCam.cs" />
     <Compile Include="Assets\Generic IK\DemoFiles\Code\LookAtDemo.cs" />
-    <Compile Include="Assets\Generic IK\Core\Utility\RigReader.cs" />
+    <Compile Include="Assets\Unity\Info\Scripts\Readme.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\Player\ThirdPersonUserControl.cs" />
+    <Compile Include="Assets\Generic IK\Core\Internal\Core.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\AutoCam.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\ChainKinematicDemo.cs" />
     <Compile Include="Assets\Generic IK\Core\Internal\DirectionalSwingSolver.cs" />
-    <Compile Include="Assets\NonConvexMeshCollider.cs" />
+    <Compile Include="Assets\Unity\ConstraintSamples\Scripts\mParent.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\PivotBasedCameraRig.cs" />
+    <Compile Include="Assets\Generic IK\Core\Utility\HumanLeg.cs" />
+    <Compile Include="Assets\Generic IK\Core\InverseKinematics.cs" />
+    <Compile Include="Assets\Generic IK\Core\Utility\RigReader.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\Player\ThirdPersonCharacter.cs" />
+    <Compile Include="Assets\Generic IK\DemoFiles\Code\Camera\LookatTarget.cs" />
+    <Compile Include="Assets\Generic IK\Core\Internal\FastReachSolver.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Generic IK\Core\Utility\GenericMath.cs" />
+    <Compile Include="Assets\Scripts\MeshExtrusion.cs" />
+    <Compile Include="Assets\Scripts\ExtrudeOnClick.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Generic IK\DemoFiles\Demo Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
     <None Include="Assets\Generic IK\ProjectSettings\ProjectVersion.txt" />
+    <None Include="Assets\Materials\Standard Double Side Shider.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -309,11 +311,11 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>E:\Programs\Unity\2020.3.10f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Burst.Unsafe">
       <HintPath>Library\PackageCache\com.unity.burst@1.3.4\Unity.Burst.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>E:\Programs\Unity\2020.3.10f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -669,6 +671,9 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
       <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
     </Reference>
@@ -690,6 +695,12 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.ProBuilder">
       <HintPath>Library\ScriptAssemblies\Unity.ProBuilder.dll</HintPath>
     </Reference>
@@ -699,32 +710,23 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Burst">
-      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Animation.Rigging">
-      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Animation.Rigging.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Burst.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Animation.Rigging">
+      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

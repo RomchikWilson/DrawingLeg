@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject leftLine = default;
     [SerializeField] private GameObject rightLine = default;
     [SerializeField] private Transform cameraTarget = default;
+    [SerializeField] private LineRenderer lineRenderer = default;
 
     [Header("Settings")]
     [SerializeField] private float lineThickness = default;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool freezeGame = false;
     private Vector3 startingPosition;
+
     private Mesh meshLeft;
     private Mesh meshRight;
 
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
         if (!freezeGame)
         {
             transform.Translate(Vector3.forward * velocityPlayer * Time.deltaTime);
-        } 
+        }
     }
 
     private void FreezeGame()
@@ -83,118 +85,278 @@ public class PlayerController : MonoBehaviour
     private void CleanAndDrawLines(Vector3[] pointsPosition, int countPoints)
     {
         //Создаем локальные переменные
+        //Vector3 maxY = new Vector3(0f, -100f, 0f);
+        //Vector3 minY = new Vector3(0f, 100f, 0f);
+
+        //Vector3[] vertices = new Vector3[(countPoints - 1) * 8];
+        //int[] triangls = new int[(countPoints - 1) * 36];
+
+        //int indexPointsVertices = 0;
+        //int indexPointsTriangls = 0;
+        //int index = 0;
+        //int toAdd;
+        //Vector3 previousPosition = Vector3.zero;
+
+        ////Найдём самую высокую точку
+        //foreach (Vector3 _position in pointsPosition)
+        //{
+        //    if (_position.y > maxY.y)
+        //    {
+        //        maxY = _position;
+        //    }
+        //    else if (_position.y < minY.y)
+        //    {
+        //        minY = _position;
+        //    }
+        //}
+
+        ////Создаем точки вершин и треугольников для MeshFilters
+        //foreach (Vector3 _position in pointsPosition)
+        //{
+        //    if (previousPosition == Vector3.zero)
+        //    {
+        //        previousPosition = _position;
+        //        continue;
+        //    }
+
+        //    //if (_position.y - previousPosition.y > _position.x - previousPosition.x)
+        //    //{
+        //    vertices[indexPointsVertices == 0 ? 0 : ++indexPointsVertices] = new Vector3(previousPosition.z - lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 - lineThickness);
+        //    vertices[++indexPointsVertices] = new Vector3(previousPosition.z - lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 + lineThickness);
+        //    vertices[++indexPointsVertices] = new Vector3(_position.z - lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 + lineThickness);
+        //    vertices[++indexPointsVertices] = new Vector3(_position.z - lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 - lineThickness);
+        //    vertices[++indexPointsVertices] = new Vector3(_position.z + lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 - lineThickness);
+        //    vertices[++indexPointsVertices] = new Vector3(_position.z + lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 + lineThickness);
+        //    vertices[++indexPointsVertices] = new Vector3(previousPosition.z + lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 + lineThickness);
+        //    vertices[++indexPointsVertices] = new Vector3(previousPosition.z + lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 - lineThickness);
+        //    //}
+        //    //else if (_position.y - previousPosition.y < _position.x - previousPosition.x)
+        //    //{
+        //    //    vertices[indexPointsVertices == 0 ? 0 : ++indexPointsVertices] = new Vector3(0 - lineThickness, previousPosition.y - lineThickness, previousPosition.z + lineThickness);
+        //    //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, previousPosition.y - lineThickness, previousPosition.z + lineThickness);
+        //    //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, previousPosition.y + lineThickness, previousPosition.z + lineThickness);
+        //    //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, previousPosition.y + lineThickness, previousPosition.z + lineThickness);
+        //    //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, _position.y + lineThickness, _position.z + lineThickness);
+        //    //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, _position.y + lineThickness, _position.z + lineThickness);
+        //    //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, _position.y - lineThickness, _position.z + lineThickness);
+        //    //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, _position.y - lineThickness, _position.z + lineThickness);
+        //    //}
+
+        //    toAdd = (index * 8);
+
+        //    triangls[indexPointsTriangls == 0 ? 0 : ++indexPointsTriangls] = 0 + toAdd;
+        //    triangls[++indexPointsTriangls] = 2 + toAdd;
+        //    triangls[++indexPointsTriangls] = 1 + toAdd;
+        //    triangls[++indexPointsTriangls] = 0 + toAdd;
+        //    triangls[++indexPointsTriangls] = 3 + toAdd;
+        //    triangls[++indexPointsTriangls] = 2 + toAdd;
+        //    triangls[++indexPointsTriangls] = 2 + toAdd;
+        //    triangls[++indexPointsTriangls] = 3 + toAdd;
+        //    triangls[++indexPointsTriangls] = 4 + toAdd;
+        //    triangls[++indexPointsTriangls] = 2 + toAdd;
+        //    triangls[++indexPointsTriangls] = 4 + toAdd;
+        //    triangls[++indexPointsTriangls] = 5 + toAdd;
+        //    triangls[++indexPointsTriangls] = 1 + toAdd;
+        //    triangls[++indexPointsTriangls] = 2 + toAdd;
+        //    triangls[++indexPointsTriangls] = 5 + toAdd;
+        //    triangls[++indexPointsTriangls] = 1 + toAdd;
+        //    triangls[++indexPointsTriangls] = 5 + toAdd;
+        //    triangls[++indexPointsTriangls] = 6 + toAdd;
+        //    triangls[++indexPointsTriangls] = 0 + toAdd;
+        //    triangls[++indexPointsTriangls] = 7 + toAdd;
+        //    triangls[++indexPointsTriangls] = 4 + toAdd;
+        //    triangls[++indexPointsTriangls] = 0 + toAdd;
+        //    triangls[++indexPointsTriangls] = 4 + toAdd;
+        //    triangls[++indexPointsTriangls] = 3 + toAdd;
+        //    triangls[++indexPointsTriangls] = 5 + toAdd;
+        //    triangls[++indexPointsTriangls] = 4 + toAdd;
+        //    triangls[++indexPointsTriangls] = 7 + toAdd;
+        //    triangls[++indexPointsTriangls] = 5 + toAdd;
+        //    triangls[++indexPointsTriangls] = 7 + toAdd;
+        //    triangls[++indexPointsTriangls] = 6 + toAdd;
+        //    triangls[++indexPointsTriangls] = 0 + toAdd;
+        //    triangls[++indexPointsTriangls] = 6 + toAdd;
+        //    triangls[++indexPointsTriangls] = 7 + toAdd;
+        //    triangls[++indexPointsTriangls] = 0 + toAdd;
+        //    triangls[++indexPointsTriangls] = 1 + toAdd;
+        //    triangls[++indexPointsTriangls] = 6 + toAdd;
+
+        //    previousPosition = _position;
+        //    index++;
+        //}
+
+        ////Получаем MeshFilters
+        //meshLeft = leftLine.GetComponent<MeshFilter>().mesh;
+        //meshRight = rightLine.GetComponent<MeshFilter>().mesh;
+
+        ////Чистим и заполняем новыми вершинами и треугольниками MeshFilters
+        //meshLeft.Clear();
+        //meshRight.Clear();
+
+        //meshLeft.vertices = vertices;
+        //meshRight.vertices = vertices;
+
+        //meshLeft.triangles = triangls;
+        //meshRight.triangles = triangls;
+
+        //meshLeft.Optimize();
+        //meshRight.Optimize();
+
+        //meshLeft.RecalculateNormals();
+        //meshRight.RecalculateNormals();
+
+        ////Заполняем Colliders
+        //leftLine.GetComponent<MeshCollider>().sharedMesh = meshLeft;
+        //rightLine.GetComponent<MeshCollider>().sharedMesh = meshRight;
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        ///
+
+        //Узнаем максимально высокую точку LineRenderer
         Vector3 maxY = new Vector3(0f, -100f, 0f);
-        Vector3 minY = new Vector3(0f, 100f, 0f);
 
-        Vector3[] vertices = new Vector3[(countPoints - 1) * 8];
-        int[] triangls = new int[(countPoints - 1) * 36];
-
-        int indexPointsVertices = 0;
-        int indexPointsTriangls = 0;
-        int index = 0;
-        int toAdd;
-        Vector3 previousPosition = Vector3.zero;
-
-        //Найдём самую высокую точку
-        foreach (Vector3 _position in pointsPosition)
+        for (int i = 0; i < lineRenderer.positionCount; i++)
         {
-            if (_position.y > maxY.y)
+            Vector3 pos = lineRenderer.GetPosition(i);
+
+            if (pos.y > maxY.y)
             {
-                maxY = _position;
-            } else if (_position.y < minY.y)
-            {
-                minY = _position;
-            }        
+                maxY = pos;
+            }
         }
 
-        //Создаем точки вершин и треугольников для MeshFilters
-        foreach (Vector3 _position in pointsPosition)
+        //Подготавливаем LineRenderer перед запеканием в Mesh
+        for (int i = 0; i < lineRenderer.positionCount; i++)
         {
-            if (previousPosition == Vector3.zero)
+            Vector3 pos = lineRenderer.GetPosition(i);
+
+            lineRenderer.SetPosition(i, new Vector3(0f, pos.y - maxY.y, pos.z - maxY.z));
+        }
+
+        //Запекаем линию с LineRenderer в Mesh
+        lineRenderer.BakeMesh(rightLine.GetComponent<MeshFilter>().mesh);
+
+        //Получаем Mesh с линии правой ноги
+        Mesh mesh_rightLine = rightLine.GetComponent<MeshFilter>().mesh;
+
+        //Получаем вершины Mesh
+        List<Vector3> vertices_rightLine_Left = new List<Vector3>();
+        for (int i = 0; i < mesh_rightLine.vertices.Length; i++)
+        {
+            vertices_rightLine_Left.Add(mesh_rightLine.vertices[i]);
+        }
+
+        //Получаем треугольники Mesh
+        List<int> triangles_rightLine_Left = new List<int>();
+        for (int i = 0; i < mesh_rightLine.triangles.Length; i++)
+        {
+            triangles_rightLine_Left.Add(mesh_rightLine.triangles[i]);
+        }
+
+        //Создаем нужные нам локальные переменные для генерации меша
+        int countVertices = 0;
+        int countOldVertices = vertices_rightLine_Left.Count;
+        bool firstCube = true;
+
+        for (int i = 0; i <= countOldVertices; i++)
+        {
+            if ((firstCube ? i % 4 != 0 : i % 2 != 0) || i == 0) continue;
+
+            //Генерация меша вначале
+            if (firstCube)
             {
-                previousPosition = _position;
-                continue;
+                vertices_rightLine_Left.Add(vertices_rightLine_Left[i - 4]);
+                vertices_rightLine_Left.Add(vertices_rightLine_Left[i - 3]);
+                vertices_rightLine_Left.Add(new Vector3(vertices_rightLine_Left[i - 3].x - 0.05f, vertices_rightLine_Left[i - 3].y, vertices_rightLine_Left[i - 3].z));
+                vertices_rightLine_Left.Add(new Vector3(vertices_rightLine_Left[i - 4].x - 0.05f, vertices_rightLine_Left[i - 4].y, vertices_rightLine_Left[i - 4].z));
+
+                countVertices = vertices_rightLine_Left.Count;
+
+                triangles_rightLine_Left.Add(countVertices - 4);  //0
+                triangles_rightLine_Left.Add(countVertices - 2);  //2
+                triangles_rightLine_Left.Add(countVertices - 3);  //1
+
+                triangles_rightLine_Left.Add(countVertices - 4);  //0
+                triangles_rightLine_Left.Add(countVertices - 1);  //3
+                triangles_rightLine_Left.Add(countVertices - 2);  //2
             }
 
-            //if (_position.y - previousPosition.y > _position.x - previousPosition.x)
-            //{
-                vertices[indexPointsVertices == 0 ? 0 : ++indexPointsVertices] = new Vector3(previousPosition.z - lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 - lineThickness);
-                vertices[++indexPointsVertices] = new Vector3(previousPosition.z - lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 + lineThickness);
-                vertices[++indexPointsVertices] = new Vector3(_position.z - lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 + lineThickness);
-                vertices[++indexPointsVertices] = new Vector3(_position.z - lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 - lineThickness);
-                vertices[++indexPointsVertices] = new Vector3(_position.z + lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 - lineThickness);
-                vertices[++indexPointsVertices] = new Vector3(_position.z + lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 + lineThickness);
-                vertices[++indexPointsVertices] = new Vector3(previousPosition.z + lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 + lineThickness);
-                vertices[++indexPointsVertices] = new Vector3(previousPosition.z + lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 - lineThickness);
-            //}
-            //else if (_position.y - previousPosition.y < _position.x - previousPosition.x)
-            //{
-            //    vertices[indexPointsVertices == 0 ? 0 : ++indexPointsVertices] = new Vector3(0 - lineThickness, previousPosition.y - lineThickness, previousPosition.z + lineThickness);
-            //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, previousPosition.y - lineThickness, previousPosition.z + lineThickness);
-            //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, previousPosition.y + lineThickness, previousPosition.z + lineThickness);
-            //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, previousPosition.y + lineThickness, previousPosition.z + lineThickness);
-            //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, _position.y + lineThickness, _position.z + lineThickness);
-            //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, _position.y + lineThickness, _position.z + lineThickness);
-            //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, _position.y - lineThickness, _position.z + lineThickness);
-            //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, _position.y - lineThickness, _position.z + lineThickness);
-            //}
+            //Генерация меша сверху
+            vertices_rightLine_Left.Add(vertices_rightLine_Left[i - 3]);
+            vertices_rightLine_Left.Add(vertices_rightLine_Left[i - 1]);
+            vertices_rightLine_Left.Add(new Vector3(vertices_rightLine_Left[i - 1].x - 0.05f, vertices_rightLine_Left[i - 1].y, vertices_rightLine_Left[i - 1].z));
+            vertices_rightLine_Left.Add(new Vector3(vertices_rightLine_Left[i - 3].x - 0.05f, vertices_rightLine_Left[i - 3].y, vertices_rightLine_Left[i - 3].z));
 
-            toAdd = (index * 8);
+            countVertices = vertices_rightLine_Left.Count;
 
-            triangls[indexPointsTriangls == 0 ? 0 : ++indexPointsTriangls] = 0 + toAdd;
-            triangls[++indexPointsTriangls] = 2 + toAdd;
-            triangls[++indexPointsTriangls] = 1 + toAdd;
-            triangls[++indexPointsTriangls] = 0 + toAdd;
-            triangls[++indexPointsTriangls] = 3 + toAdd;
-            triangls[++indexPointsTriangls] = 2 + toAdd;
-            triangls[++indexPointsTriangls] = 2 + toAdd;
-            triangls[++indexPointsTriangls] = 3 + toAdd;
-            triangls[++indexPointsTriangls] = 4 + toAdd;
-            triangls[++indexPointsTriangls] = 2 + toAdd;
-            triangls[++indexPointsTriangls] = 4 + toAdd;
-            triangls[++indexPointsTriangls] = 5 + toAdd;
-            triangls[++indexPointsTriangls] = 1 + toAdd;
-            triangls[++indexPointsTriangls] = 2 + toAdd;
-            triangls[++indexPointsTriangls] = 5 + toAdd;
-            triangls[++indexPointsTriangls] = 1 + toAdd;
-            triangls[++indexPointsTriangls] = 5 + toAdd;
-            triangls[++indexPointsTriangls] = 6 + toAdd;
-            triangls[++indexPointsTriangls] = 0 + toAdd;
-            triangls[++indexPointsTriangls] = 7 + toAdd;
-            triangls[++indexPointsTriangls] = 4 + toAdd;
-            triangls[++indexPointsTriangls] = 0 + toAdd;
-            triangls[++indexPointsTriangls] = 4 + toAdd;
-            triangls[++indexPointsTriangls] = 3 + toAdd;
-            triangls[++indexPointsTriangls] = 5 + toAdd;
-            triangls[++indexPointsTriangls] = 4 + toAdd;
-            triangls[++indexPointsTriangls] = 7 + toAdd;
-            triangls[++indexPointsTriangls] = 5 + toAdd;
-            triangls[++indexPointsTriangls] = 7 + toAdd;
-            triangls[++indexPointsTriangls] = 6 + toAdd;
-            triangls[++indexPointsTriangls] = 0 + toAdd;
-            triangls[++indexPointsTriangls] = 6 + toAdd;
-            triangls[++indexPointsTriangls] = 7 + toAdd;
-            triangls[++indexPointsTriangls] = 0 + toAdd;
-            triangls[++indexPointsTriangls] = 1 + toAdd;
-            triangls[++indexPointsTriangls] = 6 + toAdd;
+            triangles_rightLine_Left.Add(countVertices - 4);  //0
+            triangles_rightLine_Left.Add(countVertices - 2);  //2
+            triangles_rightLine_Left.Add(countVertices - 3);  //1
 
-            previousPosition = _position;
-            index++;
+            triangles_rightLine_Left.Add(countVertices - 4);  //0
+            triangles_rightLine_Left.Add(countVertices - 1);  //3
+            triangles_rightLine_Left.Add(countVertices - 2);  //2
+
+            //Генерация меша снизу
+            vertices_rightLine_Left.Add(vertices_rightLine_Left[i - 4]);
+            vertices_rightLine_Left.Add(vertices_rightLine_Left[i - 2]);
+            vertices_rightLine_Left.Add(new Vector3(vertices_rightLine_Left[i - 2].x - 0.05f, vertices_rightLine_Left[i - 2].y, vertices_rightLine_Left[i - 2].z));
+            vertices_rightLine_Left.Add(new Vector3(vertices_rightLine_Left[i - 4].x - 0.05f, vertices_rightLine_Left[i - 4].y, vertices_rightLine_Left[i - 4].z));
+
+            countVertices = vertices_rightLine_Left.Count;
+
+            triangles_rightLine_Left.Add(countVertices - 4);  //0
+            triangles_rightLine_Left.Add(countVertices - 2);  //2
+            triangles_rightLine_Left.Add(countVertices - 3);  //1
+
+            triangles_rightLine_Left.Add(countVertices - 4);  //0
+            triangles_rightLine_Left.Add(countVertices - 1);  //3
+            triangles_rightLine_Left.Add(countVertices - 2);  //2
+
+            //Генерация меша в конце
+            if (i == countOldVertices)
+            {
+                vertices_rightLine_Left.Add(vertices_rightLine_Left[i - 2]);
+                vertices_rightLine_Left.Add(vertices_rightLine_Left[i - 1]);
+                vertices_rightLine_Left.Add(new Vector3(vertices_rightLine_Left[i - 1].x - 0.05f, vertices_rightLine_Left[i - 1].y, vertices_rightLine_Left[i - 1].z));
+                vertices_rightLine_Left.Add(new Vector3(vertices_rightLine_Left[i - 2].x - 0.05f, vertices_rightLine_Left[i - 2].y, vertices_rightLine_Left[i - 2].z));
+
+                countVertices = vertices_rightLine_Left.Count;
+
+                triangles_rightLine_Left.Add(countVertices - 4);  //0
+                triangles_rightLine_Left.Add(countVertices - 2);  //2
+                triangles_rightLine_Left.Add(countVertices - 3);  //1
+
+                triangles_rightLine_Left.Add(countVertices - 4);  //0
+                triangles_rightLine_Left.Add(countVertices - 1);  //3
+                triangles_rightLine_Left.Add(countVertices - 2);  //2
+            }
+
+            firstCube = false;
         }
 
-        //Получаем MeshFilters
-        meshLeft = leftLine.GetComponent<MeshFilter>().mesh;
-        meshRight = rightLine.GetComponent<MeshFilter>().mesh;
+        //Конвертируем List в массив
+        Vector3[] vertices = new Vector3[vertices_rightLine_Left.Count];
+        for (int i = 0; i < vertices_rightLine_Left.Count; i++)
+        {
+            vertices[i] = vertices_rightLine_Left[i];
+        }
 
-        //Чистим и заполняем новыми вершинами и треугольниками MeshFilters
+        int[] triangles = new int[triangles_rightLine_Left.Count];
+        for (int i = 0; i < triangles_rightLine_Left.Count; i++)
+        {
+            triangles[i] = triangles_rightLine_Left[i];
+        }
+
+        ////Чистим и заполняем новыми вершинами и треугольниками MeshFilters
         meshLeft.Clear();
         meshRight.Clear();
 
         meshLeft.vertices = vertices;
         meshRight.vertices = vertices;
 
-        meshLeft.triangles = triangls;
-        meshRight.triangles = triangls;
+        meshLeft.triangles = triangles;
+        meshRight.triangles = triangles;
 
         meshLeft.Optimize();
         meshRight.Optimize();
@@ -205,8 +367,6 @@ public class PlayerController : MonoBehaviour
         //Заполняем Colliders
         leftLine.GetComponent<MeshCollider>().sharedMesh = meshLeft;
         rightLine.GetComponent<MeshCollider>().sharedMesh = meshRight;
-
-        //transform.position = new Vector3(transform.position.x, transform.position.y + Math.Abs(maxY.y - minY.y), transform.position.z);
     }
 
     void OnTriggerEnter(Collider collision)
@@ -229,3 +389,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
