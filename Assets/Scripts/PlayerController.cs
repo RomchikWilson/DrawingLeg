@@ -84,136 +84,9 @@ public class PlayerController : MonoBehaviour
 
     private void CleanAndDrawLines(Vector3[] pointsPosition, int countPoints)
     {
-        //Создаем локальные переменные
-        //Vector3 maxY = new Vector3(0f, -100f, 0f);
-        //Vector3 minY = new Vector3(0f, 100f, 0f);
-
-        //Vector3[] vertices = new Vector3[(countPoints - 1) * 8];
-        //int[] triangls = new int[(countPoints - 1) * 36];
-
-        //int indexPointsVertices = 0;
-        //int indexPointsTriangls = 0;
-        //int index = 0;
-        //int toAdd;
-        //Vector3 previousPosition = Vector3.zero;
-
-        ////Найдём самую высокую точку
-        //foreach (Vector3 _position in pointsPosition)
-        //{
-        //    if (_position.y > maxY.y)
-        //    {
-        //        maxY = _position;
-        //    }
-        //    else if (_position.y < minY.y)
-        //    {
-        //        minY = _position;
-        //    }
-        //}
-
-        ////Создаем точки вершин и треугольников для MeshFilters
-        //foreach (Vector3 _position in pointsPosition)
-        //{
-        //    if (previousPosition == Vector3.zero)
-        //    {
-        //        previousPosition = _position;
-        //        continue;
-        //    }
-
-        //    //if (_position.y - previousPosition.y > _position.x - previousPosition.x)
-        //    //{
-        //    vertices[indexPointsVertices == 0 ? 0 : ++indexPointsVertices] = new Vector3(previousPosition.z - lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 - lineThickness);
-        //    vertices[++indexPointsVertices] = new Vector3(previousPosition.z - lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 + lineThickness);
-        //    vertices[++indexPointsVertices] = new Vector3(_position.z - lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 + lineThickness);
-        //    vertices[++indexPointsVertices] = new Vector3(_position.z - lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 - lineThickness);
-        //    vertices[++indexPointsVertices] = new Vector3(_position.z + lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 - lineThickness);
-        //    vertices[++indexPointsVertices] = new Vector3(_position.z + lineThickness - maxY.z, _position.y + lineThickness - maxY.y, 0 + lineThickness);
-        //    vertices[++indexPointsVertices] = new Vector3(previousPosition.z + lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 + lineThickness);
-        //    vertices[++indexPointsVertices] = new Vector3(previousPosition.z + lineThickness - maxY.z, previousPosition.y + lineThickness - maxY.y, 0 - lineThickness);
-        //    //}
-        //    //else if (_position.y - previousPosition.y < _position.x - previousPosition.x)
-        //    //{
-        //    //    vertices[indexPointsVertices == 0 ? 0 : ++indexPointsVertices] = new Vector3(0 - lineThickness, previousPosition.y - lineThickness, previousPosition.z + lineThickness);
-        //    //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, previousPosition.y - lineThickness, previousPosition.z + lineThickness);
-        //    //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, previousPosition.y + lineThickness, previousPosition.z + lineThickness);
-        //    //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, previousPosition.y + lineThickness, previousPosition.z + lineThickness);
-        //    //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, _position.y + lineThickness, _position.z + lineThickness);
-        //    //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, _position.y + lineThickness, _position.z + lineThickness);
-        //    //    vertices[++indexPointsVertices] = new Vector3(0 + lineThickness, _position.y - lineThickness, _position.z + lineThickness);
-        //    //    vertices[++indexPointsVertices] = new Vector3(0 - lineThickness, _position.y - lineThickness, _position.z + lineThickness);
-        //    //}
-
-        //    toAdd = (index * 8);
-
-        //    triangls[indexPointsTriangls == 0 ? 0 : ++indexPointsTriangls] = 0 + toAdd;
-        //    triangls[++indexPointsTriangls] = 2 + toAdd;
-        //    triangls[++indexPointsTriangls] = 1 + toAdd;
-        //    triangls[++indexPointsTriangls] = 0 + toAdd;
-        //    triangls[++indexPointsTriangls] = 3 + toAdd;
-        //    triangls[++indexPointsTriangls] = 2 + toAdd;
-        //    triangls[++indexPointsTriangls] = 2 + toAdd;
-        //    triangls[++indexPointsTriangls] = 3 + toAdd;
-        //    triangls[++indexPointsTriangls] = 4 + toAdd;
-        //    triangls[++indexPointsTriangls] = 2 + toAdd;
-        //    triangls[++indexPointsTriangls] = 4 + toAdd;
-        //    triangls[++indexPointsTriangls] = 5 + toAdd;
-        //    triangls[++indexPointsTriangls] = 1 + toAdd;
-        //    triangls[++indexPointsTriangls] = 2 + toAdd;
-        //    triangls[++indexPointsTriangls] = 5 + toAdd;
-        //    triangls[++indexPointsTriangls] = 1 + toAdd;
-        //    triangls[++indexPointsTriangls] = 5 + toAdd;
-        //    triangls[++indexPointsTriangls] = 6 + toAdd;
-        //    triangls[++indexPointsTriangls] = 0 + toAdd;
-        //    triangls[++indexPointsTriangls] = 7 + toAdd;
-        //    triangls[++indexPointsTriangls] = 4 + toAdd;
-        //    triangls[++indexPointsTriangls] = 0 + toAdd;
-        //    triangls[++indexPointsTriangls] = 4 + toAdd;
-        //    triangls[++indexPointsTriangls] = 3 + toAdd;
-        //    triangls[++indexPointsTriangls] = 5 + toAdd;
-        //    triangls[++indexPointsTriangls] = 4 + toAdd;
-        //    triangls[++indexPointsTriangls] = 7 + toAdd;
-        //    triangls[++indexPointsTriangls] = 5 + toAdd;
-        //    triangls[++indexPointsTriangls] = 7 + toAdd;
-        //    triangls[++indexPointsTriangls] = 6 + toAdd;
-        //    triangls[++indexPointsTriangls] = 0 + toAdd;
-        //    triangls[++indexPointsTriangls] = 6 + toAdd;
-        //    triangls[++indexPointsTriangls] = 7 + toAdd;
-        //    triangls[++indexPointsTriangls] = 0 + toAdd;
-        //    triangls[++indexPointsTriangls] = 1 + toAdd;
-        //    triangls[++indexPointsTriangls] = 6 + toAdd;
-
-        //    previousPosition = _position;
-        //    index++;
-        //}
-
-        ////Получаем MeshFilters
-        //meshLeft = leftLine.GetComponent<MeshFilter>().mesh;
-        //meshRight = rightLine.GetComponent<MeshFilter>().mesh;
-
-        ////Чистим и заполняем новыми вершинами и треугольниками MeshFilters
-        //meshLeft.Clear();
-        //meshRight.Clear();
-
-        //meshLeft.vertices = vertices;
-        //meshRight.vertices = vertices;
-
-        //meshLeft.triangles = triangls;
-        //meshRight.triangles = triangls;
-
-        //meshLeft.Optimize();
-        //meshRight.Optimize();
-
-        //meshLeft.RecalculateNormals();
-        //meshRight.RecalculateNormals();
-
-        ////Заполняем Colliders
-        //leftLine.GetComponent<MeshCollider>().sharedMesh = meshLeft;
-        //rightLine.GetComponent<MeshCollider>().sharedMesh = meshRight;
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        ///
-
-        //Узнаем максимально высокую точку LineRenderer
+        //Узнаем самую высокую и низкую точки LineRenderer
         Vector3 maxY = new Vector3(0f, -100f, 0f);
+        Vector3 minY = new Vector3(0f, 100f, 0f);
 
         for (int i = 0; i < lineRenderer.positionCount; i++)
         {
@@ -222,6 +95,11 @@ public class PlayerController : MonoBehaviour
             if (pos.y > maxY.y)
             {
                 maxY = pos;
+            }
+            
+            if (pos.y < minY.y)
+            {
+                minY = pos;
             }
         }
 
@@ -367,6 +245,9 @@ public class PlayerController : MonoBehaviour
         //Заполняем Colliders
         leftLine.GetComponent<MeshCollider>().sharedMesh = meshLeft;
         rightLine.GetComponent<MeshCollider>().sharedMesh = meshRight;
+
+        //Телепортируем персонажа вверх
+        transform.position = transform.position + (Vector3.up * Math.Abs(maxY.y - minY.y));
     }
 
     void OnTriggerEnter(Collider collision)
